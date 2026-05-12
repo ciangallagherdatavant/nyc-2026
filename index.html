@@ -46,13 +46,12 @@
 
   .container { max-width: 1180px; margin: 0 auto; padding: 56px 40px 120px; }
 
-  /* ---------- HEADER ---------- */
   header.top {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     padding-bottom: 28px;
-    margin-bottom: 56px;
+    margin-bottom: 32px;
     border-bottom: 1px solid var(--border);
   }
   .brand {
@@ -83,7 +82,88 @@
     margin-bottom: 6px;
   }
 
-  /* ---------- HERO METRICS ---------- */
+  .job-selector {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 30px;
+    margin-bottom: 40px;
+    box-shadow: var(--shadow);
+  }
+  .job-selector-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .js-left { flex: 1; min-width: 260px; }
+  .js-label {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 10px;
+  }
+  .js-current {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .js-current .sep { color: var(--text-mute); margin: 0 8px; }
+  .js-current .role { color: var(--accent); }
+  .js-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    min-width: 320px;
+  }
+  .job-select {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 11px 38px 11px 16px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13.5px;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M2 4.5l4 4 4-4' stroke='%23a1a1aa' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    min-width: 320px;
+    transition: all 0.15s ease;
+  }
+  .job-select:hover { border-color: var(--border-strong); }
+  .job-select:focus { outline: none; border-color: var(--accent-dim); box-shadow: 0 0 0 3px var(--accent-glow); }
+  .job-select option { background: var(--surface); color: var(--text); }
+  .custom-inputs {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    width: 320px;
+  }
+  .custom-inputs.show { display: flex; }
+  .custom-input {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13.5px;
+    width: 100%;
+    transition: all 0.15s ease;
+  }
+  .custom-input:focus { outline: none; border-color: var(--accent-dim); box-shadow: 0 0 0 3px var(--accent-glow); }
+  .custom-input::placeholder { color: var(--text-mute); }
+  .custom-row { display: flex; gap: 8px; }
+  .custom-row .custom-input { flex: 1; }
+  .custom-row .custom-input.narrow { flex: 0 0 110px; }
+
   .hero {
     display: grid;
     grid-template-columns: 1.4fr 1fr 1fr;
@@ -121,7 +201,6 @@
   .metric-sub { color: var(--text-dim); font-size: 13px; margin-top: 14px; }
   .metric-sub .accent { color: var(--accent); }
 
-  /* ---------- SECTIONS ---------- */
   section { margin-bottom: 72px; }
   .section-head {
     display: flex;
@@ -145,7 +224,6 @@
   }
   .section-hint { color: var(--text-faint); font-size: 13px; }
 
-  /* ---------- INCOME CALCULATOR ---------- */
   .calc {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -155,11 +233,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 48px;
   }
-  .calc-controls .scenario-row {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 28px;
-  }
+  .calc-controls .scenario-row { display: flex; gap: 8px; margin-bottom: 28px; }
   .scenario-btn {
     flex: 1;
     background: var(--bg-2);
@@ -203,24 +277,17 @@
     background: transparent;
     cursor: pointer;
   }
-  input[type="range"]::-webkit-slider-runnable-track {
-    height: 4px;
-    background: var(--surface-3);
-    border-radius: 2px;
-  }
+  input[type="range"]::-webkit-slider-runnable-track { height: 4px; background: var(--surface-3); border-radius: 2px; }
   input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 16px;
-    height: 16px;
+    width: 16px; height: 16px;
     background: var(--accent);
     border-radius: 50%;
     margin-top: -6px;
     box-shadow: 0 0 0 4px rgba(212, 184, 106, 0.15);
     transition: box-shadow 0.15s ease;
   }
-  input[type="range"]::-webkit-slider-thumb:hover {
-    box-shadow: 0 0 0 6px rgba(212, 184, 106, 0.2);
-  }
+  input[type="range"]::-webkit-slider-thumb:hover { box-shadow: 0 0 0 6px rgba(212, 184, 106, 0.2); }
 
   .calc-result {
     background: var(--bg-2);
@@ -268,12 +335,7 @@
   .breakdown-item .b-value .currency { color: var(--text-mute); font-size: 0.65em; margin-right: 2px; font-family: 'Inter', sans-serif; vertical-align: 0.2em; }
   .breakdown-item.dim .b-value { color: var(--text-dim); }
 
-  /* ---------- ACTION CARDS ---------- */
-  .actions-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
+  .actions-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .action-card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -297,10 +359,7 @@
     display: flex; align-items: center; justify-content: center;
     transition: all 0.15s ease;
   }
-  .action-card.done .action-check {
-    background: var(--accent);
-    border-color: var(--accent);
-  }
+  .action-card.done .action-check { background: var(--accent); border-color: var(--accent); }
   .action-card.done .action-check::after {
     content: '';
     width: 6px; height: 11px;
@@ -325,7 +384,6 @@
   .action-tag.green { color: var(--green); background: rgba(74,222,128,0.08); }
   .action-tag.dim { color: var(--text-faint); background: transparent; border: 1px solid var(--border); }
 
-  /* ---------- TIMELINE ---------- */
   .timeline {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -409,10 +467,7 @@
     display: flex; align-items: center; justify-content: center;
     transition: all 0.15s ease;
   }
-  .check-item.done .check-box {
-    background: var(--green);
-    border-color: var(--green);
-  }
+  .check-item.done .check-box { background: var(--green); border-color: var(--green); }
   .check-item.done .check-box::after {
     content: '';
     width: 5px; height: 9px;
@@ -423,12 +478,7 @@
   .check-text { flex: 1; font-size: 14px; color: var(--text); }
   .check-text .note { display: block; color: var(--text-faint); font-size: 12px; margin-top: 2px; }
 
-  /* ---------- BUDGET ---------- */
-  .budget-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-  }
+  .budget-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
   .budget-card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -452,12 +502,7 @@
   .budget-amount .unit { color: var(--text-faint); font-size: 0.45em; margin-left: 4px; font-family: 'Inter', sans-serif; }
   .budget-note { font-size: 12px; color: var(--text-dim); margin-top: 10px; line-height: 1.5; }
 
-  /* ---------- REFERENCE ---------- */
-  .ref-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
+  .ref-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   details.ref {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -512,7 +557,6 @@
   details.ref .ref-body strong { color: var(--text); font-weight: 500; }
   details.ref .ref-body .price { color: var(--accent); font-feature-settings: 'tnum'; }
 
-  /* ---------- PRIORITIES FOOTER ---------- */
   .priorities {
     background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
     border: 1px solid var(--border);
@@ -532,15 +576,8 @@
     text-transform: uppercase;
     margin-bottom: 28px;
   }
-  .priorities-list {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-  }
-  .priority-item {
-    border-left: 1px solid var(--border);
-    padding-left: 20px;
-  }
+  .priorities-list { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .priority-item { border-left: 1px solid var(--border); padding-left: 20px; }
   .priority-item:first-child { border-left: none; padding-left: 0; }
   .priority-num {
     font-family: 'Fraunces', Georgia, serif;
@@ -552,7 +589,6 @@
   .priority-title { font-size: 14px; font-weight: 500; margin-bottom: 6px; }
   .priority-desc { font-size: 12.5px; color: var(--text-dim); line-height: 1.55; }
 
-  /* ---------- PROGRESS BAR ---------- */
   .progress-block {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -592,11 +628,14 @@
     transition: width 0.4s ease;
   }
 
-  /* ---------- RESPONSIVE ---------- */
   @media (max-width: 900px) {
     .container { padding: 32px 20px 80px; }
     header.top { flex-direction: column; align-items: flex-start; gap: 16px; }
     .header-meta { text-align: left; }
+    .job-selector-row { flex-direction: column; align-items: flex-start; }
+    .js-right { align-items: flex-start; min-width: 0; width: 100%; }
+    .job-select { min-width: 0; width: 100%; }
+    .custom-inputs { width: 100%; }
     .hero { grid-template-columns: 1fr; }
     .calc { grid-template-columns: 1fr; gap: 32px; padding: 24px; }
     .actions-grid { grid-template-columns: 1fr; }
@@ -613,39 +652,64 @@
 <body>
 <div class="container">
 
-  <!-- HEADER -->
   <header class="top">
     <div>
       <div class="brand">NYC<span class="dot">.</span>26</div>
-      <div class="brand-sub">J1 Summer Briefing · Cian Gallagher</div>
+      <div class="brand-sub">J1 Summer Briefing</div>
     </div>
     <div class="header-meta">
-      <div class="small">Engagement</div>
-      <div>The Standard, High Line · Busser</div>
-      <div style="margin-top: 6px; color: var(--text-faint);">~8 weeks · $17/hr + tip-out</div>
+      <div class="small">Trip</div>
+      <div>3 months · ~8 weeks work + 1 month travel</div>
     </div>
   </header>
 
-  <!-- HERO METRICS -->
+  <div class="job-selector">
+    <div class="job-selector-row">
+      <div class="js-left">
+        <div class="js-label">Tailored for</div>
+        <div class="js-current">
+          <span id="engagementVenue">The Standard, High Line</span>
+          <span class="sep">·</span>
+          <span class="role" id="engagementRole">Busser</span>
+        </div>
+      </div>
+      <div class="js-right">
+        <select id="jobSelect" class="job-select">
+          <option value="standard">The Standard, High Line · Busser</option>
+          <option value="bubbaGump">Bubba Gump Shrimp, Times Square · Server</option>
+          <option value="bar">Generic NYC Bar · Bartender / Barback</option>
+          <option value="restaurant">Generic NYC Restaurant · Server</option>
+          <option value="custom">Custom — enter your own ↓</option>
+        </select>
+        <div id="customJobInputs" class="custom-inputs">
+          <input type="text" id="customVenue" placeholder="Venue name (e.g. Joe's Bar)" class="custom-input" />
+          <div class="custom-row">
+            <input type="text" id="customRole" placeholder="Role (e.g. Bartender)" class="custom-input" />
+            <input type="number" id="customHourly" placeholder="$/hr" class="custom-input narrow" min="5" max="40" step="0.5" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="hero">
     <div class="metric">
       <div class="metric-label">Expected net take-home</div>
-      <div class="metric-value"><span class="currency">$</span>14,250</div>
-      <div class="metric-sub">Midpoint scenario · 36 hrs/wk, mixed Grill + rooftop shifts</div>
+      <div class="metric-value"><span class="currency">$</span><span id="heroExpected">14,250</span></div>
+      <div class="metric-sub">Midpoint scenario · expected hours + tips</div>
     </div>
     <div class="metric">
       <div class="metric-label">Achievable ceiling</div>
-      <div class="metric-value"><span class="currency">$</span>20,000</div>
-      <div class="metric-sub">Heavy rooftop rotation, peak summer</div>
+      <div class="metric-value"><span class="currency">$</span><span id="heroStrive">20,000</span></div>
+      <div class="metric-sub">Peak rotation, no missed shifts</div>
     </div>
     <div class="metric">
       <div class="metric-label">Effective hourly</div>
-      <div class="metric-value"><span class="currency">$</span>46</div>
+      <div class="metric-value"><span class="currency">$</span><span id="heroHourly">46</span></div>
       <div class="metric-sub">Base + tips, expected scenario</div>
     </div>
   </div>
 
-  <!-- INCOME CALCULATOR -->
   <section>
     <div class="section-head">
       <div class="section-title"><span class="num">01</span>Income projection</div>
@@ -672,7 +736,7 @@
 
         <div class="slider-row">
           <label>Avg tips per shift <span class="val" id="tipsVal"><span style="font-family: 'Inter',sans-serif;color:var(--text-faint);font-size:14px;">$</span>250</span></label>
-          <input type="range" id="tips" min="50" max="500" step="10" value="250" />
+          <input type="range" id="tips" min="50" max="600" step="10" value="250" />
         </div>
 
         <div class="slider-row">
@@ -708,7 +772,6 @@
     </div>
   </section>
 
-  <!-- TAX & MONEY-BACK ACTIONS -->
   <section>
     <div class="section-head">
       <div class="section-title"><span class="num">02</span>Money-back actions</div>
@@ -790,8 +853,8 @@
       <div class="action-card" data-id="perks">
         <div class="action-check"></div>
         <div class="action-body">
-          <div class="action-title">Ask manager about Standard staff perks</div>
-          <div class="action-desc">Staff meal per shift, 25–50% F&B discount, Friends & Family rate at other Standards, TransitChek pre-tax MetroCard.</div>
+          <div class="action-title" id="perksTitle">Ask manager about Standard staff perks</div>
+          <div class="action-desc" id="perksDesc">Staff meal per shift, 25–50% F&B discount, Friends & Family rate at other Standards, TransitChek pre-tax MetroCard.</div>
           <span class="action-tag">Hidden value</span>
         </div>
       </div>
@@ -807,7 +870,6 @@
     </div>
   </section>
 
-  <!-- SPENDING TARGETS -->
   <section>
     <div class="section-head">
       <div class="section-title"><span class="num">03</span>Monthly spending targets</div>
@@ -838,7 +900,6 @@
     </div>
   </section>
 
-  <!-- TIMELINE -->
   <section>
     <div class="section-head">
       <div class="section-title"><span class="num">04</span>Timeline checklist</div>
@@ -859,7 +920,7 @@
           <div class="panel-when">First 7 days in NYC</div>
           <ul class="check-list">
             <li class="check-item" data-id="t-ssn"><div class="check-box"></div><div class="check-text">Apply for SSN at Social Security office<span class="note">DS-2019, I-94, passport, J1 visa, sponsor letter</span></div></li>
-            <li class="check-item" data-id="t-w4"><div class="check-box"></div><div class="check-text">Submit W-4 to Standard payroll marked NRA</div></li>
+            <li class="check-item" data-id="t-w4"><div class="check-box"></div><div class="check-text">Submit W-4 to payroll marked NRA</div></li>
             <li class="check-item" data-id="t-j1cat"><div class="check-box"></div><div class="check-text">Ask HR: am I SWT or Trainee/Intern?<span class="note">Determines Form 8233 eligibility</span></div></li>
             <li class="check-item" data-id="t-paystub"><div class="check-box"></div><div class="check-text">Inspect first paystub for FICA/Medicare deductions</div></li>
             <li class="check-item" data-id="t-bank"><div class="check-box"></div><div class="check-text">Open Chase or BoA account</div></li>
@@ -873,7 +934,7 @@
           <h3>Maximise during the run</h3>
           <div class="panel-when">Weeks 2 through 7</div>
           <ul class="check-list">
-            <li class="check-item" data-id="t-rooftop"><div class="check-box"></div><div class="check-text">Push for rooftop / Le Bain weekend shifts<span class="note">Single biggest tip lever — ask once trusted</span></div></li>
+            <li class="check-item" data-id="t-rooftop"><div class="check-box"></div><div class="check-text">Push for the busy shifts (Fri/Sat night, weekend brunch)<span class="note">Single biggest tip lever — ask once trusted</span></div></li>
             <li class="check-item" data-id="t-pickup"><div class="check-box"></div><div class="check-text">Pick up open shifts on staff WhatsApp/Slack</div></li>
             <li class="check-item" data-id="t-reliable"><div class="check-box"></div><div class="check-text">Never late, never call out — managers reward this with sections</div></li>
             <li class="check-item" data-id="t-screenshot"><div class="check-box"></div><div class="check-text">Screenshot weekly paystubs to your phone</div></li>
@@ -907,7 +968,6 @@
     </div>
   </section>
 
-  <!-- QUICK REFERENCE -->
   <section>
     <div class="section-head">
       <div class="section-title"><span class="num">05</span>Quick reference</div>
@@ -936,7 +996,7 @@
             <li><strong>Pre-game</strong> with bodega beers in Domino Park, Prospect Park, Brooklyn Bridge Park — saves <span class="price">$40–80</span>/night</li>
             <li><strong>Dive bars</strong> in Bushwick, Bed-Stuy, East Village, LES — <span class="price">$5–7</span> beers, <span class="price">$10</span> cocktails</li>
             <li><strong>Sunday/Monday</strong> industry nights — 25–50% off with hospitality ID</li>
-            <li><strong>Never</strong> go to Le Bain as a customer. Same applies to Meatpacking and West Village</li>
+            <li><strong>Never</strong> drink as a customer at the venue you'd work at, or its direct neighbours</li>
           </ul>
         </div>
       </details>
@@ -996,7 +1056,6 @@
     </div>
   </section>
 
-  <!-- TOP PRIORITIES -->
   <div class="priorities">
     <div class="priorities-head">If you only do four things</div>
     <div class="priorities-sub">The biggest dollar levers, ranked</div>
@@ -1028,22 +1087,118 @@
 
 <script>
 (function(){
-  // --- LOCAL STORAGE ---
   const STORAGE_KEY = 'nyc_j1_dashboard_state';
   function loadState() {
     try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e) { return {}; }
   }
-  function saveState(state) {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){}
+  function saveState(s) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch(e){}
   }
   const state = loadState();
 
-  // --- INCOME CALCULATOR ---
+  const jobs = {
+    standard: {
+      venue: "The Standard, High Line",
+      role: "Busser",
+      hourly: 17,
+      scenarios: {
+        conservative: { hours: 32, shifts: 5, tips: 150, weeks: 8 },
+        expected:     { hours: 36, shifts: 5, tips: 250, weeks: 8.5 },
+        strive:       { hours: 40, shifts: 5, tips: 350, weeks: 9 }
+      },
+      perksTitle: "Ask manager about Standard staff perks",
+      perksDesc: "Staff meal per shift, 25–50% F&B discount at Standard properties, Friends & Family rate at other Standards (LA, Miami, London, Bangkok), TransitChek pre-tax MetroCard."
+    },
+    bubbaGump: {
+      venue: "Bubba Gump Shrimp, Times Square",
+      role: "Server",
+      hourly: 16,
+      scenarios: {
+        conservative: { hours: 32, shifts: 5, tips: 130, weeks: 8 },
+        expected:     { hours: 36, shifts: 5, tips: 220, weeks: 8.5 },
+        strive:       { hours: 40, shifts: 5, tips: 320, weeks: 9 }
+      },
+      perksTitle: "Ask manager about Landry's employee benefits",
+      perksDesc: "Bubba Gump is owned by Landry's — staff often get 25–50% off at sister restaurants (Rainforest Cafe, McCormick & Schmick's, Saltgrass, Morton's), shift meal, possible Golden Nugget hotel discounts."
+    },
+    bar: {
+      venue: "Generic NYC Bar",
+      role: "Bartender / Barback",
+      hourly: 16,
+      scenarios: {
+        conservative: { hours: 28, shifts: 4, tips: 200, weeks: 8 },
+        expected:     { hours: 32, shifts: 4, tips: 350, weeks: 8.5 },
+        strive:       { hours: 36, shifts: 5, tips: 500, weeks: 9 }
+      },
+      perksTitle: "Ask manager about bar staff perks",
+      perksDesc: "Shift drink (one or two on the house per shift), friends & family discount, comp meal at most bars, industry-night discounts at neighbouring bars on Sun/Mon. Build relationships with reps for free swag and event tickets."
+    },
+    restaurant: {
+      venue: "Generic NYC Restaurant",
+      role: "Server",
+      hourly: 17,
+      scenarios: {
+        conservative: { hours: 32, shifts: 5, tips: 130, weeks: 8 },
+        expected:     { hours: 36, shifts: 5, tips: 230, weeks: 8.5 },
+        strive:       { hours: 40, shifts: 5, tips: 330, weeks: 9 }
+      },
+      perksTitle: "Ask manager about restaurant staff perks",
+      perksDesc: "Staff meal per shift, 25–50% F&B discount, possibly TransitChek pre-tax MetroCard, comp drinks during/after shift at many venues."
+    },
+    custom: {
+      venue: "Your venue",
+      role: "Your role",
+      hourly: 17,
+      scenarios: {
+        conservative: { hours: 32, shifts: 5, tips: 150, weeks: 8 },
+        expected:     { hours: 36, shifts: 5, tips: 250, weeks: 8.5 },
+        strive:       { hours: 40, shifts: 5, tips: 350, weeks: 9 }
+      },
+      perksTitle: "Ask manager about staff perks",
+      perksDesc: "Most NYC hospitality jobs include some mix of: staff meal per shift, F&B discount, shift drink, industry-night discounts at neighbouring venues. Always worth asking in week 1."
+    }
+  };
+
+  let HOURLY = 17;
   const scenarios = {
     conservative: { hours: 32, shifts: 5, tips: 150, weeks: 8 },
     expected:     { hours: 36, shifts: 5, tips: 250, weeks: 8.5 },
     strive:       { hours: 40, shifts: 5, tips: 350, weeks: 9 }
   };
+
+  function getCurrentJob() {
+    const id = state.selectedJob || 'standard';
+    if (id === 'custom') {
+      return Object.assign({}, jobs.custom, {
+        venue: (state.customVenue && state.customVenue.trim()) || 'Your venue',
+        role:  (state.customRole && state.customRole.trim())  || 'Your role',
+        hourly: parseFloat(state.customHourly) || jobs.custom.hourly
+      });
+    }
+    return jobs[id] || jobs.standard;
+  }
+
+  function fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+
+  function computeNet(scenario, hourly, taxRate) {
+    if (taxRate === undefined) taxRate = 0.15;
+    const totalHours = scenario.hours * scenario.weeks;
+    const totalShifts = scenario.shifts * scenario.weeks;
+    const gross = totalHours * hourly;
+    const netBase = gross * (1 - taxRate);
+    const tips = scenario.tips * totalShifts;
+    return {
+      gross: gross,
+      tax: gross * taxRate,
+      netBase: netBase,
+      tips: tips,
+      totalHours: totalHours,
+      totalShifts: totalShifts,
+      total: netBase + tips,
+      effectiveHourly: (netBase + tips) / totalHours
+    };
+  }
+
   const $hours = document.getElementById('hours');
   const $shifts = document.getElementById('shifts');
   const $tips = document.getElementById('tips');
@@ -1059,32 +1214,24 @@
   const $shiftsTotal = document.getElementById('shiftsTotalVal');
   const $hoursTotal = document.getElementById('hoursTotalVal');
 
-  function fmt(n) { return Math.round(n).toLocaleString('en-US'); }
-
   function recalc() {
-    const hours = +$hours.value;
-    const shifts = +$shifts.value;
-    const tips = +$tips.value;
-    const weeks = +$weeks.value;
-    const HOURLY = 17, TAX = 0.15;
-    const totalHours = hours * weeks;
-    const totalShifts = shifts * weeks;
-    const gross = totalHours * HOURLY;
-    const tax = gross * TAX;
-    const netBase = gross - tax;
-    const totalTips = tips * totalShifts;
-    const total = netBase + totalTips;
+    const r = computeNet({
+      hours: +$hours.value,
+      shifts: +$shifts.value,
+      tips: +$tips.value,
+      weeks: +$weeks.value
+    }, HOURLY);
 
-    $hoursVal.innerHTML = hours + '<span class="unit">hrs</span>';
-    $shiftsVal.innerHTML = shifts + '<span class="unit">shifts</span>';
-    $tipsVal.innerHTML = '<span style="font-family:\'Inter\',sans-serif;color:var(--text-faint);font-size:14px;">$</span>' + tips;
-    $weeksVal.innerHTML = weeks + '<span class="unit">wks</span>';
-    $total.textContent = fmt(total);
-    $gross.textContent = fmt(gross);
-    $tax.textContent = fmt(tax);
-    $tipsTotal.textContent = fmt(totalTips);
-    $shiftsTotal.textContent = Math.round(totalShifts);
-    $hoursTotal.textContent = Math.round(totalHours);
+    $hoursVal.innerHTML = $hours.value + '<span class="unit">hrs</span>';
+    $shiftsVal.innerHTML = $shifts.value + '<span class="unit">shifts</span>';
+    $tipsVal.innerHTML = '<span style="font-family:\'Inter\',sans-serif;color:var(--text-faint);font-size:14px;">$</span>' + $tips.value;
+    $weeksVal.innerHTML = $weeks.value + '<span class="unit">wks</span>';
+    $total.textContent = fmt(r.total);
+    $gross.textContent = fmt(r.gross);
+    $tax.textContent = fmt(r.tax);
+    $tipsTotal.textContent = fmt(r.tips);
+    $shiftsTotal.textContent = Math.round(r.totalShifts);
+    $hoursTotal.textContent = Math.round(r.totalHours);
   }
 
   function setScenario(name) {
@@ -1104,7 +1251,62 @@
     b.addEventListener('click', () => setScenario(b.dataset.scenario));
   });
 
-  // --- ACTION CARDS ---
+  function applyJob() {
+    const job = getCurrentJob();
+    document.getElementById('engagementVenue').textContent = job.venue;
+    document.getElementById('engagementRole').textContent = job.role;
+    document.getElementById('perksTitle').textContent = job.perksTitle;
+    document.getElementById('perksDesc').textContent = job.perksDesc;
+
+    const exp = computeNet(job.scenarios.expected, job.hourly);
+    const str = computeNet(job.scenarios.strive, job.hourly);
+    document.getElementById('heroExpected').textContent = fmt(exp.total);
+    document.getElementById('heroStrive').textContent = fmt(str.total);
+    document.getElementById('heroHourly').textContent = Math.round(exp.effectiveHourly);
+
+    Object.assign(scenarios, job.scenarios);
+    HOURLY = job.hourly;
+
+    const activeBtn = document.querySelector('.scenario-btn.active');
+    if (activeBtn) setScenario(activeBtn.dataset.scenario);
+    else recalc();
+  }
+
+  const $jobSelect = document.getElementById('jobSelect');
+  const $customInputs = document.getElementById('customJobInputs');
+  const $customVenue = document.getElementById('customVenue');
+  const $customRole = document.getElementById('customRole');
+  const $customHourly = document.getElementById('customHourly');
+
+  function toggleCustom(show) {
+    $customInputs.classList.toggle('show', show);
+  }
+
+  $jobSelect.addEventListener('change', e => {
+    state.selectedJob = e.target.value;
+    saveState(state);
+    toggleCustom(e.target.value === 'custom');
+    applyJob();
+  });
+
+  [$customVenue, $customRole, $customHourly].forEach(el => {
+    el.addEventListener('input', () => {
+      state.customVenue = $customVenue.value;
+      state.customRole = $customRole.value;
+      state.customHourly = $customHourly.value;
+      saveState(state);
+      if ((state.selectedJob || 'standard') === 'custom') applyJob();
+    });
+  });
+
+  if (state.selectedJob) {
+    $jobSelect.value = state.selectedJob;
+    toggleCustom(state.selectedJob === 'custom');
+  }
+  if (state.customVenue) $customVenue.value = state.customVenue;
+  if (state.customRole) $customRole.value = state.customRole;
+  if (state.customHourly) $customHourly.value = state.customHourly;
+
   function renderActions() {
     const cards = document.querySelectorAll('.action-card');
     let done = 0;
@@ -1129,7 +1331,6 @@
     });
   });
 
-  // --- TIMELINE TABS + CHECKLIST ---
   function renderChecklist() {
     document.querySelectorAll('.timeline-panel').forEach(panel => {
       const id = panel.id.replace('panel-', '');
@@ -1163,8 +1364,8 @@
     });
   });
 
-  // --- INIT ---
-  recalc();
+  applyJob();
+  setScenario('expected');
   renderActions();
   renderChecklist();
 })();
