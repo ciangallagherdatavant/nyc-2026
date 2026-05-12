@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NYC · J1 Summer Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --bg-2: #0f0f11;
+    --surface: #131316;
+    --surface-2: #1a1a1f;
+    --surface-3: #1f1f25;
+    --border: #26262d;
+    --border-strong: #34343d;
+    --text: #f4f4f5;
+    --text-dim: #a1a1aa;
+    --text-faint: #71717a;
+    --text-mute: #52525b;
+    --accent: #d4b86a;
+    --accent-dim: #8a7a4a;
+    --accent-glow: rgba(212, 184, 106, 0.08);
+    --green: #4ade80;
+    --green-dim: #166534;
+    --red: #f87171;
+    --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.2);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-feature-settings: 'cv11', 'ss01', 'tnum';
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background:
+      radial-gradient(circle at 15% -10%, rgba(212, 184, 106, 0.04), transparent 40%),
+      radial-gradient(circle at 85% 110%, rgba(74, 222, 128, 0.03), transparent 40%),
+      var(--bg);
+    min-height: 100vh;
+  }
+
+  .container { max-width: 1180px; margin: 0 auto; padding: 56px 40px 120px; }
+
+  /* ---------- HEADER ---------- */
+  header.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 28px;
+    margin-bottom: 56px;
+    border-bottom: 1px solid var(--border);
+  }
+  .brand {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 32px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .brand .dot { color: var(--accent); }
+  .brand-sub {
+    color: var(--text-faint);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+  .header-meta {
+    text-align: right;
+    color: var(--text-dim);
+    font-size: 13px;
+  }
+  .header-meta .small {
+    font-size: 11px;
+    color: var(--text-mute);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  /* ---------- HERO METRICS ---------- */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 64px;
+    box-shadow: var(--shadow);
+  }
+  .metric {
+    background: var(--surface);
+    padding: 32px 36px;
+    position: relative;
+  }
+  .metric:first-child { background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%); }
+  .metric-label {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 18px;
+  }
+  .metric-value {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 44px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--text);
+  }
+  .metric:first-child .metric-value { font-size: 52px; }
+  .metric-value .currency { color: var(--text-faint); font-size: 0.55em; margin-right: 4px; vertical-align: 0.25em; font-family: 'Inter', sans-serif; font-weight: 400; }
+  .metric-sub { color: var(--text-dim); font-size: 13px; margin-top: 14px; }
+  .metric-sub .accent { color: var(--accent); }
+
+  /* ---------- SECTIONS ---------- */
+  section { margin-bottom: 72px; }
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 24px;
+  }
+  .section-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  .section-title .num {
+    color: var(--accent);
+    font-size: 13px;
+    margin-right: 12px;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.1em;
+    vertical-align: 4px;
+  }
+  .section-hint { color: var(--text-faint); font-size: 13px; }
+
+  /* ---------- INCOME CALCULATOR ---------- */
+  .calc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 36px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+  .calc-controls .scenario-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+  .scenario-btn {
+    flex: 1;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 12px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .scenario-btn:hover { color: var(--text); border-color: var(--border-strong); }
+  .scenario-btn.active {
+    background: var(--accent-glow);
+    border-color: var(--accent-dim);
+    color: var(--accent);
+  }
+  .slider-row { margin-bottom: 22px; }
+  .slider-row label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+    color: var(--text-dim);
+    font-size: 13px;
+  }
+  .slider-row label .val {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 18px;
+    color: var(--text);
+    font-feature-settings: 'tnum';
+  }
+  .slider-row label .val .unit { font-family: 'Inter', sans-serif; color: var(--text-faint); font-size: 12px; margin-left: 4px; }
+  input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+  }
+  input[type="range"]::-webkit-slider-runnable-track {
+    height: 4px;
+    background: var(--surface-3);
+    border-radius: 2px;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin-top: -6px;
+    box-shadow: 0 0 0 4px rgba(212, 184, 106, 0.15);
+    transition: box-shadow 0.15s ease;
+  }
+  input[type="range"]::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 0 6px rgba(212, 184, 106, 0.2);
+  }
+
+  .calc-result {
+    background: var(--bg-2);
+    border-radius: 10px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .result-total .label {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 12px;
+  }
+  .result-total .value {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 56px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .result-total .value .currency { color: var(--text-faint); font-size: 0.45em; margin-right: 6px; vertical-align: 0.4em; font-family: 'Inter', sans-serif; }
+  .result-breakdown {
+    margin-top: 28px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 32px;
+  }
+  .breakdown-item .b-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 4px;
+  }
+  .breakdown-item .b-value {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 20px;
+    color: var(--text);
+  }
+  .breakdown-item .b-value .currency { color: var(--text-mute); font-size: 0.65em; margin-right: 2px; font-family: 'Inter', sans-serif; vertical-align: 0.2em; }
+  .breakdown-item.dim .b-value { color: var(--text-dim); }
+
+  /* ---------- ACTION CARDS ---------- */
+  .actions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .action-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 24px;
+    display: flex;
+    gap: 16px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    position: relative;
+  }
+  .action-card:hover { border-color: var(--border-strong); transform: translateY(-1px); }
+  .action-card.done { opacity: 0.45; }
+  .action-card.done .action-title { text-decoration: line-through; text-decoration-color: var(--text-mute); }
+  .action-check {
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    border: 1.5px solid var(--border-strong);
+    border-radius: 6px;
+    margin-top: 2px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s ease;
+  }
+  .action-card.done .action-check {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .action-card.done .action-check::after {
+    content: '';
+    width: 6px; height: 11px;
+    border-right: 2px solid var(--bg);
+    border-bottom: 2px solid var(--bg);
+    transform: rotate(45deg) translate(-1px, -1px);
+  }
+  .action-body { flex: 1; }
+  .action-title { font-size: 15px; font-weight: 500; margin-bottom: 6px; line-height: 1.3; }
+  .action-desc { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
+  .action-tag {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-glow);
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+  .action-tag.green { color: var(--green); background: rgba(74,222,128,0.08); }
+  .action-tag.dim { color: var(--text-faint); background: transparent; border: 1px solid var(--border); }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .timeline-tabs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px solid var(--border);
+  }
+  .timeline-tab {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    padding: 18px 12px;
+    font-family: inherit;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    position: relative;
+    border-right: 1px solid var(--border);
+    transition: all 0.15s ease;
+  }
+  .timeline-tab:last-child { border-right: none; }
+  .timeline-tab:hover { color: var(--text); background: var(--bg-2); }
+  .timeline-tab.active { color: var(--accent); background: var(--bg-2); }
+  .timeline-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+  }
+  .timeline-tab .count {
+    display: block;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 14px;
+    color: var(--text-faint);
+    margin-top: 4px;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .timeline-tab.active .count { color: var(--accent); }
+  .timeline-content { padding: 28px 32px; }
+  .timeline-panel { display: none; }
+  .timeline-panel.active { display: block; }
+  .timeline-panel h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 4px;
+  }
+  .timeline-panel .panel-when {
+    font-size: 12px;
+    color: var(--text-faint);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+  .check-list { list-style: none; }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .check-item:last-child { border-bottom: none; }
+  .check-item:hover { padding-left: 4px; }
+  .check-item.done .check-text { color: var(--text-mute); text-decoration: line-through; }
+  .check-box {
+    flex-shrink: 0;
+    width: 18px; height: 18px;
+    border: 1.5px solid var(--border-strong);
+    border-radius: 5px;
+    margin-top: 2px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s ease;
+  }
+  .check-item.done .check-box {
+    background: var(--green);
+    border-color: var(--green);
+  }
+  .check-item.done .check-box::after {
+    content: '';
+    width: 5px; height: 9px;
+    border-right: 2px solid var(--bg);
+    border-bottom: 2px solid var(--bg);
+    transform: rotate(45deg) translate(-1px, -1px);
+  }
+  .check-text { flex: 1; font-size: 14px; color: var(--text); }
+  .check-text .note { display: block; color: var(--text-faint); font-size: 12px; margin-top: 2px; }
+
+  /* ---------- BUDGET ---------- */
+  .budget-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  .budget-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+  }
+  .budget-cat {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 14px;
+  }
+  .budget-amount {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 28px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .budget-amount .currency { color: var(--text-faint); font-size: 0.6em; vertical-align: 0.25em; margin-right: 2px; font-family: 'Inter', sans-serif; }
+  .budget-amount .unit { color: var(--text-faint); font-size: 0.45em; margin-left: 4px; font-family: 'Inter', sans-serif; }
+  .budget-note { font-size: 12px; color: var(--text-dim); margin-top: 10px; line-height: 1.5; }
+
+  /* ---------- REFERENCE ---------- */
+  .ref-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  details.ref {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.15s ease;
+  }
+  details.ref[open] { border-color: var(--border-strong); }
+  details.ref summary {
+    padding: 20px 24px;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+  }
+  details.ref summary::-webkit-details-marker { display: none; }
+  details.ref summary .title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 17px;
+    font-weight: 400;
+  }
+  details.ref summary .chev {
+    width: 10px; height: 10px;
+    border-right: 1.5px solid var(--text-faint);
+    border-bottom: 1.5px solid var(--text-faint);
+    transform: rotate(45deg);
+    transition: transform 0.2s ease;
+  }
+  details.ref[open] summary .chev { transform: rotate(-135deg); }
+  details.ref .ref-body {
+    padding: 0 24px 22px;
+    color: var(--text-dim);
+    font-size: 13.5px;
+    line-height: 1.7;
+  }
+  details.ref .ref-body ul { list-style: none; }
+  details.ref .ref-body li {
+    padding: 6px 0;
+    padding-left: 18px;
+    position: relative;
+  }
+  details.ref .ref-body li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 14px;
+    width: 5px; height: 5px;
+    background: var(--accent-dim);
+    border-radius: 50%;
+  }
+  details.ref .ref-body strong { color: var(--text); font-weight: 500; }
+  details.ref .ref-body .price { color: var(--accent); font-feature-settings: 'tnum'; }
+
+  /* ---------- PRIORITIES FOOTER ---------- */
+  .priorities {
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 36px 40px;
+    margin-top: 32px;
+  }
+  .priorities-head {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 22px;
+    margin-bottom: 4px;
+  }
+  .priorities-sub {
+    color: var(--text-faint);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .priorities-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .priority-item {
+    border-left: 1px solid var(--border);
+    padding-left: 20px;
+  }
+  .priority-item:first-child { border-left: none; padding-left: 0; }
+  .priority-num {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 32px;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .priority-title { font-size: 14px; font-weight: 500; margin-bottom: 6px; }
+  .priority-desc { font-size: 12.5px; color: var(--text-dim); line-height: 1.55; }
+
+  /* ---------- PROGRESS BAR ---------- */
+  .progress-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 28px;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .progress-info { flex: 1; }
+  .progress-label {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 8px;
+  }
+  .progress-stat {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 22px;
+    line-height: 1.1;
+  }
+  .progress-stat .pct { color: var(--accent); }
+  .progress-stat .total { color: var(--text-faint); font-size: 0.6em; margin-left: 6px; }
+  .progress-bar {
+    flex: 2;
+    height: 6px;
+    background: var(--surface-3);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-dim), var(--accent));
+    border-radius: 3px;
+    transition: width 0.4s ease;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 900px) {
+    .container { padding: 32px 20px 80px; }
+    header.top { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .header-meta { text-align: left; }
+    .hero { grid-template-columns: 1fr; }
+    .calc { grid-template-columns: 1fr; gap: 32px; padding: 24px; }
+    .actions-grid { grid-template-columns: 1fr; }
+    .budget-grid { grid-template-columns: 1fr 1fr; }
+    .ref-grid { grid-template-columns: 1fr; }
+    .priorities-list { grid-template-columns: 1fr 1fr; gap: 24px; }
+    .priority-item:nth-child(3) { border-left: none; padding-left: 0; }
+    .timeline-tabs { grid-template-columns: 1fr 1fr; }
+    .timeline-tab:nth-child(even) { border-right: none; }
+    .timeline-tab:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <header class="top">
+    <div>
+      <div class="brand">NYC<span class="dot">.</span>26</div>
+      <div class="brand-sub">J1 Summer Briefing · Cian Gallagher</div>
+    </div>
+    <div class="header-meta">
+      <div class="small">Engagement</div>
+      <div>The Standard, High Line · Busser</div>
+      <div style="margin-top: 6px; color: var(--text-faint);">~8 weeks · $17/hr + tip-out</div>
+    </div>
+  </header>
+
+  <!-- HERO METRICS -->
+  <div class="hero">
+    <div class="metric">
+      <div class="metric-label">Expected net take-home</div>
+      <div class="metric-value"><span class="currency">$</span>14,250</div>
+      <div class="metric-sub">Midpoint scenario · 36 hrs/wk, mixed Grill + rooftop shifts</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Achievable ceiling</div>
+      <div class="metric-value"><span class="currency">$</span>20,000</div>
+      <div class="metric-sub">Heavy rooftop rotation, peak summer</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Effective hourly</div>
+      <div class="metric-value"><span class="currency">$</span>46</div>
+      <div class="metric-sub">Base + tips, expected scenario</div>
+    </div>
+  </div>
+
+  <!-- INCOME CALCULATOR -->
+  <section>
+    <div class="section-head">
+      <div class="section-title"><span class="num">01</span>Income projection</div>
+      <div class="section-hint">Drag the sliders or pick a scenario</div>
+    </div>
+
+    <div class="calc">
+      <div class="calc-controls">
+        <div class="scenario-row">
+          <button class="scenario-btn" data-scenario="conservative">Conservative</button>
+          <button class="scenario-btn active" data-scenario="expected">Expected</button>
+          <button class="scenario-btn" data-scenario="strive">Strive</button>
+        </div>
+
+        <div class="slider-row">
+          <label>Hours per week <span class="val" id="hoursVal">36<span class="unit">hrs</span></span></label>
+          <input type="range" id="hours" min="20" max="50" value="36" />
+        </div>
+
+        <div class="slider-row">
+          <label>Shifts per week <span class="val" id="shiftsVal">5<span class="unit">shifts</span></span></label>
+          <input type="range" id="shifts" min="3" max="6" value="5" />
+        </div>
+
+        <div class="slider-row">
+          <label>Avg tips per shift <span class="val" id="tipsVal"><span style="font-family: 'Inter',sans-serif;color:var(--text-faint);font-size:14px;">$</span>250</span></label>
+          <input type="range" id="tips" min="50" max="500" step="10" value="250" />
+        </div>
+
+        <div class="slider-row">
+          <label>Total weeks worked <span class="val" id="weeksVal">8.5<span class="unit">wks</span></span></label>
+          <input type="range" id="weeks" min="6" max="12" step="0.5" value="8.5" />
+        </div>
+      </div>
+
+      <div class="calc-result">
+        <div class="result-total">
+          <div class="label">Net take-home</div>
+          <div class="value"><span class="currency">$</span><span id="totalVal">14,250</span></div>
+        </div>
+        <div class="result-breakdown">
+          <div class="breakdown-item">
+            <div class="b-label">Base wages (gross)</div>
+            <div class="b-value"><span class="currency">$</span><span id="grossVal">5,202</span></div>
+          </div>
+          <div class="breakdown-item dim">
+            <div class="b-label">Less ~15% tax</div>
+            <div class="b-value"><span class="currency">−$</span><span id="taxVal">780</span></div>
+          </div>
+          <div class="breakdown-item">
+            <div class="b-label">Tips (net via payroll)</div>
+            <div class="b-value"><span class="currency">$</span><span id="tipsTotalVal">10,625</span></div>
+          </div>
+          <div class="breakdown-item dim">
+            <div class="b-label">Total shifts · hours</div>
+            <div class="b-value"><span id="shiftsTotalVal">42</span> <span style="color:var(--text-mute);font-size:0.75em;">·</span> <span id="hoursTotalVal">306</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAX & MONEY-BACK ACTIONS -->
+  <section>
+    <div class="section-head">
+      <div class="section-title"><span class="num">02</span>Money-back actions</div>
+      <div class="section-hint">Click a card to mark complete</div>
+    </div>
+
+    <div class="progress-block">
+      <div class="progress-info">
+        <div class="progress-label">Actions completed</div>
+        <div class="progress-stat"><span class="pct" id="actionPct">0%</span><span class="total" id="actionCount">0 of 9</span></div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="actionProgress" style="width: 0%;"></div></div>
+    </div>
+
+    <div class="actions-grid" id="actionsGrid">
+      <div class="action-card" data-id="ssn">
+        <div class="action-check"></div>
+        <div class="action-body">
+          <div class="action-title">Apply for SSN — week 1</div>
+          <div class="action-desc">Without it, employer may withhold 24% backup tax. Bring DS-2019, I-94, passport, J1 visa, sponsor letter to the Social Security office.</div>
+          <span class="action-tag">Unlocks payroll</span>
+        </div>
+      </div>
+
+      <div class="action-card" data-id="w4">
+        <div class="action-check"></div>
+        <div class="action-body">
+          <div class="action-title">File W-4 as Non-Resident Alien</div>
+          <div class="action-desc">Mark single, 0 allowances, write "NRA" on step 4(c). Prevents employer from over-withholding as if you were a US resident.</div>
+          <span class="action-tag">Prevents overpay</span>
+        </div>
+      </div>
+
+      <div class="action-card" data-id="fica">
+        <div class="action-check"></div>
+        <div class="action-body">
+          <div class="action-title">Verify FICA & Medicare not withheld</div>
+          <div class="action-desc">J1 NRAs are exempt from 7.65%. Check your first paystub. If withheld, flag payroll. If they refuse to refund, file Form 843 + 8316 later.</div>
+          <span class="action-tag green">~$300–500</span>
+        </div>
+      </div>
+
+      <div class="action-card" data-id="8233">
+        <div class="action-check"></div>
+        <div class="action-body">
+          <div class="action-title">Ask HR about Form 8233 (US-Ireland treaty)</div>
+          <div class="action-desc">If you're on J1 Trainee/Intern (not Summer Work Travel), Article 20 can exempt first $20k from federal tax. Confirm category with HR.</div>
+          <span class="action-tag green">~$500–1,500 if eligible</span>
+        </div>
+      </div>
+
+      <div class="action-card" data-id="sprintax">
+        <div class="action-check"></div>
+        <div class="action-body">
+          <div class="action-title">Get sponsor's Sprintax discount code</div>
+          <div class="action-desc">USIT, SAYIT, CIEE, and InterExchange usually provide free or discounted Sprintax codes — saves ~$50. Ask before you fly.</div>
+          <span class="action-tag dim">Saves $50</span>
+        </div>
+      </div>
+
+      <div class="action-card" data-id="bank">
+        <div class="action-check"></div>
+        <div class="action-body">
+          <div class="action-title">Open US bank account · set up Wise/Revolut</div>
+          <div class="action-desc">Chase or BoA, both J1-friendly. Use Wise/Revolut for FX home transfers — saves 2–3% vs Irish bank rates.</div>
+          <span class="action-tag dim">Bleed-stopping</span>
+        </div>
+      </div>
+
+      <div class="action-card" data-id="phone">
+        <div class="action-check"></div>
+        <div class="action-body">
+          <div class="action-title">eSIM with Mint / US Mobile / Visible</div>
+          <div class="action-desc">$15–25/month prepaid vs $50–80 with Verizon/AT&T. Set up before flight if possible. Pause Irish plan.</div>
+          <span class="action-tag dim">Saves ~$100</span>
+        </div>
+      </div>
+
+      <div class="action-card" data-id="perks">
+        <div class="action-check"></div>
+        <div class="action-body">
+          <div class="action-title">Ask manager about Standard staff perks</div>
+          <div class="action-desc">Staff meal per shift, 25–50% F&B discount, Friends & Family rate at other Standards, TransitChek pre-tax MetroCard.</div>
+          <span class="action-tag">Hidden value</span>
+        </div>
+      </div>
+
+      <div class="action-card" data-id="w2">
+        <div class="action-check"></div>
+        <div class="action-body">
+          <div class="action-title">Confirm W-2 mailing address before you leave</div>
+          <div class="action-desc">W-2 arrives end of Jan 2027. Use a trusted US friend's address, NOT your Irish one — international mail loses W-2s constantly.</div>
+          <span class="action-tag green">Unlocks refund</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPENDING TARGETS -->
+  <section>
+    <div class="section-head">
+      <div class="section-title"><span class="num">03</span>Monthly spending targets</div>
+      <div class="section-hint">Keep total under $2,750/month and you save</div>
+    </div>
+
+    <div class="budget-grid">
+      <div class="budget-card">
+        <div class="budget-cat">Rent (room)</div>
+        <div class="budget-amount"><span class="currency">$</span>1,400<span class="unit">/mo</span></div>
+        <div class="budget-note">Bushwick · Bed-Stuy · Crown Heights · Astoria. Anything under $1,200 is probably a scam.</div>
+      </div>
+      <div class="budget-card">
+        <div class="budget-cat">Going out</div>
+        <div class="budget-amount"><span class="currency">$</span>600<span class="unit">/mo</span></div>
+        <div class="budget-note">2 nights/wk, pre-game discipline. Dive bars not Meatpacking. Industry nights Sunday/Monday.</div>
+      </div>
+      <div class="budget-card">
+        <div class="budget-cat">Food + groceries</div>
+        <div class="budget-amount"><span class="currency">$</span>450<span class="unit">/mo</span></div>
+        <div class="budget-note">Trader Joe's primary, bodega for emergencies. Staff meal covers one meal/shift.</div>
+      </div>
+      <div class="budget-card">
+        <div class="budget-cat">Transit + phone</div>
+        <div class="budget-amount"><span class="currency">$</span>165<span class="unit">/mo</span></div>
+        <div class="budget-note">$132 unlimited subway + Mint $15 eSIM + buffer. OMNY weekly cap kicks in at $34.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section>
+    <div class="section-head">
+      <div class="section-title"><span class="num">04</span>Timeline checklist</div>
+      <div class="section-hint">Saves to your browser automatically</div>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-tabs">
+        <button class="timeline-tab active" data-tab="week1">Week 1<span class="count" id="count-week1">0/8</span></button>
+        <button class="timeline-tab" data-tab="midtrip">Mid-trip<span class="count" id="count-midtrip">0/5</span></button>
+        <button class="timeline-tab" data-tab="lastweek">Last week<span class="count" id="count-lastweek">0/5</span></button>
+        <button class="timeline-tab" data-tab="jan2027">Jan–Apr 2027<span class="count" id="count-jan2027">0/4</span></button>
+      </div>
+
+      <div class="timeline-content">
+        <div class="timeline-panel active" id="panel-week1">
+          <h3>Settle in, lock the money plumbing</h3>
+          <div class="panel-when">First 7 days in NYC</div>
+          <ul class="check-list">
+            <li class="check-item" data-id="t-ssn"><div class="check-box"></div><div class="check-text">Apply for SSN at Social Security office<span class="note">DS-2019, I-94, passport, J1 visa, sponsor letter</span></div></li>
+            <li class="check-item" data-id="t-w4"><div class="check-box"></div><div class="check-text">Submit W-4 to Standard payroll marked NRA</div></li>
+            <li class="check-item" data-id="t-j1cat"><div class="check-box"></div><div class="check-text">Ask HR: am I SWT or Trainee/Intern?<span class="note">Determines Form 8233 eligibility</span></div></li>
+            <li class="check-item" data-id="t-paystub"><div class="check-box"></div><div class="check-text">Inspect first paystub for FICA/Medicare deductions</div></li>
+            <li class="check-item" data-id="t-bank"><div class="check-box"></div><div class="check-text">Open Chase or BoA account</div></li>
+            <li class="check-item" data-id="t-esim"><div class="check-box"></div><div class="check-text">Activate Mint / US Mobile / Visible eSIM</div></li>
+            <li class="check-item" data-id="t-perks"><div class="check-box"></div><div class="check-text">Ask manager: staff meal, F&B discount, transit benefit</div></li>
+            <li class="check-item" data-id="t-focus"><div class="check-box"></div><div class="check-text">Sign up for FindFocusGroups, Respondent.io<span class="note">$75–250 per focus group</span></div></li>
+          </ul>
+        </div>
+
+        <div class="timeline-panel" id="panel-midtrip">
+          <h3>Maximise during the run</h3>
+          <div class="panel-when">Weeks 2 through 7</div>
+          <ul class="check-list">
+            <li class="check-item" data-id="t-rooftop"><div class="check-box"></div><div class="check-text">Push for rooftop / Le Bain weekend shifts<span class="note">Single biggest tip lever — ask once trusted</span></div></li>
+            <li class="check-item" data-id="t-pickup"><div class="check-box"></div><div class="check-text">Pick up open shifts on staff WhatsApp/Slack</div></li>
+            <li class="check-item" data-id="t-reliable"><div class="check-box"></div><div class="check-text">Never late, never call out — managers reward this with sections</div></li>
+            <li class="check-item" data-id="t-screenshot"><div class="check-box"></div><div class="check-text">Screenshot weekly paystubs to your phone</div></li>
+            <li class="check-item" data-id="t-industry"><div class="check-box"></div><div class="check-text">Find industry-night bars near home<span class="note">Sunday/Monday discounts for hospitality workers</span></div></li>
+          </ul>
+        </div>
+
+        <div class="timeline-panel" id="panel-lastweek">
+          <h3>Wrap up cleanly</h3>
+          <div class="panel-when">Final 5–7 days in NYC</div>
+          <ul class="check-list">
+            <li class="check-item" data-id="t-w2addr"><div class="check-box"></div><div class="check-text">Confirm HR has working W-2 mailing address<span class="note">Trusted US friend's address ideal</span></div></li>
+            <li class="check-item" data-id="t-sponsor"><div class="check-box"></div><div class="check-text">Email sponsor for Sprintax discount code</div></li>
+            <li class="check-item" data-id="t-sell"><div class="check-box"></div><div class="check-text">List bedding, fan, kitchen stuff on FB Marketplace</div></li>
+            <li class="check-item" data-id="t-keepbank"><div class="check-box"></div><div class="check-text">Keep US bank account open for refund deposit</div></li>
+            <li class="check-item" data-id="t-dates"><div class="check-box"></div><div class="check-text">Note exact US arrival + departure dates<span class="note">Needed for 1040-NR substantial presence calc</span></div></li>
+          </ul>
+        </div>
+
+        <div class="timeline-panel" id="panel-jan2027">
+          <h3>Claim your refund</h3>
+          <div class="panel-when">January through April 2027</div>
+          <ul class="check-list">
+            <li class="check-item" data-id="t-w2recv"><div class="check-box"></div><div class="check-text">W-2 arrives end of January — confirm receipt</div></li>
+            <li class="check-item" data-id="t-sprintax"><div class="check-box"></div><div class="check-text">File 1040-NR + state IT-203 via Sprintax<span class="note">Expected refund $400–1,200</span></div></li>
+            <li class="check-item" data-id="t-fica2"><div class="check-box"></div><div class="check-text">If FICA was wrongly withheld: file Form 843 + 8316</div></li>
+            <li class="check-item" data-id="t-transfer"><div class="check-box"></div><div class="check-text">Transfer refund home via Wise/Revolut</div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK REFERENCE -->
+  <section>
+    <div class="section-head">
+      <div class="section-title"><span class="num">05</span>Quick reference</div>
+      <div class="section-hint">Tap a card to expand</div>
+    </div>
+
+    <div class="ref-grid">
+      <details class="ref">
+        <summary><span class="title">Housing — best value neighborhoods</span><span class="chev"></span></summary>
+        <div class="ref-body">
+          <ul>
+            <li><strong>Bushwick · Bed-Stuy · Crown Heights</strong> — L/M/J/3 trains, target <span class="price">$1,200–1,500</span></li>
+            <li><strong>Astoria · Ridgewood · Sunnyside</strong> — N/W/7, slightly safer feel</li>
+            <li><strong>Washington Heights</strong> — A train, cheapest in Manhattan</li>
+            <li><strong>Where to search:</strong> Listings Project newsletter (curated), Roomi, SpareRoom, Leasebreak, "J1 NYC Accommodation" FB group</li>
+            <li><strong>Scam red flags:</strong> wire transfer, landlord "abroad", no video call, photos that reverse-image to other listings</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="ref">
+        <summary><span class="title">Drinking without bleeding</span><span class="chev"></span></summary>
+        <div class="ref-body">
+          <ul>
+            <li><strong>Happy hour 4–7pm</strong> at most spots — half-price drinks, $1 oysters at lots of bars</li>
+            <li><strong>Pre-game</strong> with bodega beers in Domino Park, Prospect Park, Brooklyn Bridge Park — saves <span class="price">$40–80</span>/night</li>
+            <li><strong>Dive bars</strong> in Bushwick, Bed-Stuy, East Village, LES — <span class="price">$5–7</span> beers, <span class="price">$10</span> cocktails</li>
+            <li><strong>Sunday/Monday</strong> industry nights — 25–50% off with hospitality ID</li>
+            <li><strong>Never</strong> go to Le Bain as a customer. Same applies to Meatpacking and West Village</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="ref">
+        <summary><span class="title">Free NYC worth doing</span><span class="chev"></span></summary>
+        <div class="ref-body">
+          <ul>
+            <li><strong>Staten Island Ferry</strong> — free, Statue of Liberty + skyline at sunset</li>
+            <li><strong>MoMA</strong> Friday 4–8pm free · <strong>Whitney</strong> Friday 5–10pm pay-what-you-wish</li>
+            <li><strong>SummerStage</strong> — free concerts in Central Park / Prospect Park all summer</li>
+            <li><strong>Shakespeare in the Park</strong> — free, TodayTix lottery</li>
+            <li><strong>Bryant Park</strong> movie nights Wednesdays · <strong>Governors Island</strong> ferry free weekday mornings</li>
+            <li><strong>Coney Island · Rockaway Beach</strong> — subway ride to the ocean</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="ref">
+        <summary><span class="title">Side income (off-shift)</span><span class="chev"></span></summary>
+        <div class="ref-body">
+          <ul>
+            <li><strong>Paid focus groups</strong> — FindFocusGroups.com, Respondent.io · <span class="price">$75–250</span> per 60–90 min · best $/hour going</li>
+            <li><strong>Catering gigs</strong> — Hire Society etc · <span class="price">$20–30/hr</span> cash · weekends</li>
+            <li><strong>Plasma donation</strong> — CSL Plasma, BioLife · <span class="price">$50–100</span> per session, 2x/week</li>
+            <li><strong>Sell before leaving</strong> — FB Marketplace 1 week before flight, recoup 40–60% of furniture spend</li>
+            <li><strong>Caveat:</strong> J1 secondary work technically needs sponsor approval — most do it but risk is yours</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="ref">
+        <summary><span class="title">Food cheats — eat well, spend less</span><span class="chev"></span></summary>
+        <div class="ref-body">
+          <ul>
+            <li><strong>Trader Joe's</strong> is the answer to almost everything — Aldi if there's one near you</li>
+            <li><strong>Halal carts</strong> <span class="price">$8–10</span> huge platters · <strong>$1 pizza</strong> still exists (99c Fresh, 2 Bros)</li>
+            <li><strong>Bodega egg-and-cheese</strong> <span class="price">$4–5</span> · perfect pre-shift breakfast</li>
+            <li><strong>Dollar dumplings</strong> in Chinatown · <strong>Smorgasburg</strong> Brooklyn weekends</li>
+            <li><strong>Skip</strong> Whole Foods, Gristedes, bodega weekly shops, anywhere with table service for lunch</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="ref">
+        <summary><span class="title">Transit — don't overpay</span><span class="chev"></span></summary>
+        <div class="ref-body">
+          <ul>
+            <li><strong>OMNY tap-to-pay</strong> on your phone — auto weekly cap at <span class="price">$34</span> (12 rides Mon–Sun, rest free)</li>
+            <li><strong>Monthly unlimited</strong> <span class="price">$132</span> — only worth it if commuting daily by subway (you probably are)</li>
+            <li><strong>Citi Bike</strong> 30-day pass <span class="price">$25</span> for casual use, watch e-bike fees</li>
+            <li><strong>Walking</strong> Manhattan ave-to-ave is faster than the subway for short hops</li>
+            <li><strong>Don't</strong> take Uber/Lyft for routine trips — surge pricing will eat a shift's tips</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- TOP PRIORITIES -->
+  <div class="priorities">
+    <div class="priorities-head">If you only do four things</div>
+    <div class="priorities-sub">The biggest dollar levers, ranked</div>
+    <div class="priorities-list">
+      <div class="priority-item">
+        <div class="priority-num">01</div>
+        <div class="priority-title">Confirm J1 category</div>
+        <div class="priority-desc">SWT vs Trainee/Intern. If Trainee, file Form 8233 — up to $1,500 saved.</div>
+      </div>
+      <div class="priority-item">
+        <div class="priority-num">02</div>
+        <div class="priority-title">Check paystub 1 for FICA</div>
+        <div class="priority-desc">7.65% should not be withheld. Catch it early or chase via Form 843 later.</div>
+      </div>
+      <div class="priority-item">
+        <div class="priority-num">03</div>
+        <div class="priority-title">Get rent under $1,500</div>
+        <div class="priority-desc">Outer boroughs, J1 networks, lock in before you fly. Every $200/mo saved = $400.</div>
+      </div>
+      <div class="priority-item">
+        <div class="priority-num">04</div>
+        <div class="priority-title">File 1040-NR in 2027</div>
+        <div class="priority-desc">Don't skip. Sprintax with sponsor's code. Refund usually $400–1,200.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  // --- LOCAL STORAGE ---
+  const STORAGE_KEY = 'nyc_j1_dashboard_state';
+  function loadState() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e) { return {}; }
+  }
+  function saveState(state) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){}
+  }
+  const state = loadState();
+
+  // --- INCOME CALCULATOR ---
+  const scenarios = {
+    conservative: { hours: 32, shifts: 5, tips: 150, weeks: 8 },
+    expected:     { hours: 36, shifts: 5, tips: 250, weeks: 8.5 },
+    strive:       { hours: 40, shifts: 5, tips: 350, weeks: 9 }
+  };
+  const $hours = document.getElementById('hours');
+  const $shifts = document.getElementById('shifts');
+  const $tips = document.getElementById('tips');
+  const $weeks = document.getElementById('weeks');
+  const $hoursVal = document.getElementById('hoursVal');
+  const $shiftsVal = document.getElementById('shiftsVal');
+  const $tipsVal = document.getElementById('tipsVal');
+  const $weeksVal = document.getElementById('weeksVal');
+  const $total = document.getElementById('totalVal');
+  const $gross = document.getElementById('grossVal');
+  const $tax = document.getElementById('taxVal');
+  const $tipsTotal = document.getElementById('tipsTotalVal');
+  const $shiftsTotal = document.getElementById('shiftsTotalVal');
+  const $hoursTotal = document.getElementById('hoursTotalVal');
+
+  function fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+
+  function recalc() {
+    const hours = +$hours.value;
+    const shifts = +$shifts.value;
+    const tips = +$tips.value;
+    const weeks = +$weeks.value;
+    const HOURLY = 17, TAX = 0.15;
+    const totalHours = hours * weeks;
+    const totalShifts = shifts * weeks;
+    const gross = totalHours * HOURLY;
+    const tax = gross * TAX;
+    const netBase = gross - tax;
+    const totalTips = tips * totalShifts;
+    const total = netBase + totalTips;
+
+    $hoursVal.innerHTML = hours + '<span class="unit">hrs</span>';
+    $shiftsVal.innerHTML = shifts + '<span class="unit">shifts</span>';
+    $tipsVal.innerHTML = '<span style="font-family:\'Inter\',sans-serif;color:var(--text-faint);font-size:14px;">$</span>' + tips;
+    $weeksVal.innerHTML = weeks + '<span class="unit">wks</span>';
+    $total.textContent = fmt(total);
+    $gross.textContent = fmt(gross);
+    $tax.textContent = fmt(tax);
+    $tipsTotal.textContent = fmt(totalTips);
+    $shiftsTotal.textContent = Math.round(totalShifts);
+    $hoursTotal.textContent = Math.round(totalHours);
+  }
+
+  function setScenario(name) {
+    const s = scenarios[name];
+    $hours.value = s.hours; $shifts.value = s.shifts; $tips.value = s.tips; $weeks.value = s.weeks;
+    recalc();
+    document.querySelectorAll('.scenario-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.scenario === name);
+    });
+  }
+
+  [$hours, $shifts, $tips, $weeks].forEach(el => el.addEventListener('input', () => {
+    recalc();
+    document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
+  }));
+  document.querySelectorAll('.scenario-btn').forEach(b => {
+    b.addEventListener('click', () => setScenario(b.dataset.scenario));
+  });
+
+  // --- ACTION CARDS ---
+  function renderActions() {
+    const cards = document.querySelectorAll('.action-card');
+    let done = 0;
+    cards.forEach(card => {
+      const id = card.dataset.id;
+      const isDone = !!state['action_' + id];
+      card.classList.toggle('done', isDone);
+      if (isDone) done++;
+    });
+    const total = cards.length;
+    const pct = total ? Math.round(done / total * 100) : 0;
+    document.getElementById('actionPct').textContent = pct + '%';
+    document.getElementById('actionCount').textContent = done + ' of ' + total;
+    document.getElementById('actionProgress').style.width = pct + '%';
+  }
+  document.querySelectorAll('.action-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = card.dataset.id;
+      state['action_' + id] = !state['action_' + id];
+      saveState(state);
+      renderActions();
+    });
+  });
+
+  // --- TIMELINE TABS + CHECKLIST ---
+  function renderChecklist() {
+    document.querySelectorAll('.timeline-panel').forEach(panel => {
+      const id = panel.id.replace('panel-', '');
+      const items = panel.querySelectorAll('.check-item');
+      let done = 0;
+      items.forEach(item => {
+        const iid = item.dataset.id;
+        const isDone = !!state['check_' + iid];
+        item.classList.toggle('done', isDone);
+        if (isDone) done++;
+      });
+      const countEl = document.getElementById('count-' + id);
+      if (countEl) countEl.textContent = done + '/' + items.length;
+    });
+  }
+  document.querySelectorAll('.check-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const id = item.dataset.id;
+      state['check_' + id] = !state['check_' + id];
+      saveState(state);
+      renderChecklist();
+    });
+  });
+  document.querySelectorAll('.timeline-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.tab;
+      document.querySelectorAll('.timeline-tab').forEach(t => t.classList.toggle('active', t === tab));
+      document.querySelectorAll('.timeline-panel').forEach(p => {
+        p.classList.toggle('active', p.id === 'panel-' + target);
+      });
+    });
+  });
+
+  // --- INIT ---
+  recalc();
+  renderActions();
+  renderChecklist();
+})();
+</script>
+</body>
+</html>
