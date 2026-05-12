@@ -9,24 +9,24 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #0a0a0b;
-    --bg-2: #0f0f11;
-    --surface: #131316;
-    --surface-2: #1a1a1f;
-    --surface-3: #1f1f25;
-    --border: #26262d;
-    --border-strong: #34343d;
-    --text: #f4f4f5;
-    --text-dim: #a1a1aa;
-    --text-faint: #71717a;
-    --text-mute: #52525b;
-    --accent: #d4b86a;
-    --accent-dim: #8a7a4a;
-    --accent-glow: rgba(212, 184, 106, 0.08);
-    --green: #4ade80;
+    --bg: #faf8f3;
+    --bg-2: #f3f0e8;
+    --surface: #ffffff;
+    --surface-2: #faf8f3;
+    --surface-3: #ebe8df;
+    --border: #e6e2d6;
+    --border-strong: #c4bfb1;
+    --text: #1a1816;
+    --text-dim: #4a4640;
+    --text-faint: #76716a;
+    --text-mute: #a8a39a;
+    --accent: #8d6e2a;
+    --accent-dim: #b8964c;
+    --accent-glow: rgba(141, 110, 42, 0.08);
+    --green: #15803d;
     --green-dim: #166534;
-    --red: #f87171;
-    --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.2);
+    --red: #b91c1c;
+    --shadow: 0 1px 2px rgba(28, 25, 23, 0.04), 0 6px 20px rgba(28, 25, 23, 0.06);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -38,8 +38,8 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background:
-      radial-gradient(circle at 15% -10%, rgba(212, 184, 106, 0.04), transparent 40%),
-      radial-gradient(circle at 85% 110%, rgba(74, 222, 128, 0.03), transparent 40%),
+      radial-gradient(circle at 15% -10%, rgba(141, 110, 42, 0.05), transparent 45%),
+      radial-gradient(circle at 85% 110%, rgba(21, 128, 61, 0.025), transparent 45%),
       var(--bg);
     min-height: 100vh;
   }
@@ -131,7 +131,7 @@
     cursor: pointer;
     -webkit-appearance: none;
     appearance: none;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M2 4.5l4 4 4-4' stroke='%23a1a1aa' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M2 4.5l4 4 4-4' stroke='%2376716a' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
     background-repeat: no-repeat;
     background-position: right 14px center;
     min-width: 320px;
@@ -284,10 +284,10 @@
     background: var(--accent);
     border-radius: 50%;
     margin-top: -6px;
-    box-shadow: 0 0 0 4px rgba(212, 184, 106, 0.15);
+    box-shadow: 0 0 0 4px rgba(141, 110, 42, 0.14);
     transition: box-shadow 0.15s ease;
   }
-  input[type="range"]::-webkit-slider-thumb:hover { box-shadow: 0 0 0 6px rgba(212, 184, 106, 0.2); }
+  input[type="range"]::-webkit-slider-thumb:hover { box-shadow: 0 0 0 6px rgba(141, 110, 42, 0.22); }
 
   .calc-result {
     background: var(--bg-2);
@@ -363,8 +363,8 @@
   .action-card.done .action-check::after {
     content: '';
     width: 6px; height: 11px;
-    border-right: 2px solid var(--bg);
-    border-bottom: 2px solid var(--bg);
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
     transform: rotate(45deg) translate(-1px, -1px);
   }
   .action-body { flex: 1; }
@@ -381,7 +381,7 @@
     padding: 4px 10px;
     border-radius: 4px;
   }
-  .action-tag.green { color: var(--green); background: rgba(74,222,128,0.08); }
+  .action-tag.green { color: var(--green); background: rgba(21, 128, 61, 0.09); }
   .action-tag.dim { color: var(--text-faint); background: transparent; border: 1px solid var(--border); }
 
   .timeline {
@@ -471,8 +471,8 @@
   .check-item.done .check-box::after {
     content: '';
     width: 5px; height: 9px;
-    border-right: 2px solid var(--bg);
-    border-bottom: 2px solid var(--bg);
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
     transform: rotate(45deg) translate(-1px, -1px);
   }
   .check-text { flex: 1; font-size: 14px; color: var(--text); }
