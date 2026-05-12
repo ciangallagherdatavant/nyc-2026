@@ -677,7 +677,8 @@
         <select id="jobSelect" class="job-select">
           <option value="standard">The Standard, High Line · Busser</option>
           <option value="bubbaGump">Bubba Gump Shrimp, Times Square · Server</option>
-          <option value="bar">Generic NYC Bar · Bartender / Barback</option>
+          <option value="bar">Generic NYC Bar · Bartender</option>
+          <option value="barback">Generic NYC Bar · Barback</option>
           <option value="restaurant">Generic NYC Restaurant · Server</option>
           <option value="custom">Custom — enter your own ↓</option>
         </select>
@@ -1102,9 +1103,9 @@
       role: "Busser",
       hourly: 17,
       scenarios: {
-        conservative: { hours: 32, shifts: 5, tips: 150, weeks: 8 },
-        expected:     { hours: 36, shifts: 5, tips: 250, weeks: 8.5 },
-        strive:       { hours: 40, shifts: 5, tips: 350, weeks: 9 }
+        conservative: { hours: 32, shifts: 5, tips: 110, weeks: 8 },
+        expected:     { hours: 36, shifts: 5, tips: 200, weeks: 8.5 },
+        strive:       { hours: 40, shifts: 5, tips: 300, weeks: 9 }
       },
       perksTitle: "Ask manager about Standard staff perks",
       perksDesc: "Staff meal per shift, 25–50% F&B discount at Standard properties, Friends & Family rate at other Standards (LA, Miami, London, Bangkok), TransitChek pre-tax MetroCard."
@@ -1114,33 +1115,45 @@
       role: "Server",
       hourly: 16,
       scenarios: {
-        conservative: { hours: 32, shifts: 5, tips: 130, weeks: 8 },
-        expected:     { hours: 36, shifts: 5, tips: 220, weeks: 8.5 },
-        strive:       { hours: 40, shifts: 5, tips: 320, weeks: 9 }
+        conservative: { hours: 32, shifts: 5, tips: 160, weeks: 8 },
+        expected:     { hours: 36, shifts: 5, tips: 250, weeks: 8.5 },
+        strive:       { hours: 40, shifts: 5, tips: 360, weeks: 9 }
       },
       perksTitle: "Ask manager about Landry's employee benefits",
       perksDesc: "Bubba Gump is owned by Landry's — staff often get 25–50% off at sister restaurants (Rainforest Cafe, McCormick & Schmick's, Saltgrass, Morton's), shift meal, possible Golden Nugget hotel discounts."
     },
     bar: {
       venue: "Generic NYC Bar",
-      role: "Bartender / Barback",
+      role: "Bartender",
       hourly: 16,
       scenarios: {
-        conservative: { hours: 28, shifts: 4, tips: 200, weeks: 8 },
-        expected:     { hours: 32, shifts: 4, tips: 350, weeks: 8.5 },
-        strive:       { hours: 36, shifts: 5, tips: 500, weeks: 9 }
+        conservative: { hours: 28, shifts: 4, tips: 180, weeks: 8 },
+        expected:     { hours: 32, shifts: 4, tips: 320, weeks: 8.5 },
+        strive:       { hours: 36, shifts: 5, tips: 460, weeks: 9 }
       },
       perksTitle: "Ask manager about bar staff perks",
       perksDesc: "Shift drink (one or two on the house per shift), friends & family discount, comp meal at most bars, industry-night discounts at neighbouring bars on Sun/Mon. Build relationships with reps for free swag and event tickets."
+    },
+    barback: {
+      venue: "Generic NYC Bar",
+      role: "Barback",
+      hourly: 16,
+      scenarios: {
+        conservative: { hours: 28, shifts: 4, tips: 90, weeks: 8 },
+        expected:     { hours: 32, shifts: 4, tips: 160, weeks: 8.5 },
+        strive:       { hours: 36, shifts: 5, tips: 260, weeks: 9 }
+      },
+      perksTitle: "Ask manager about bar staff perks",
+      perksDesc: "Barbacks get a tip-out from bartenders (typically 15–25% of bartender tips). Shift drink, comp meal at most bars, industry-night discounts. Push to be promoted to bartender — that's where the real money is."
     },
     restaurant: {
       venue: "Generic NYC Restaurant",
       role: "Server",
       hourly: 17,
       scenarios: {
-        conservative: { hours: 32, shifts: 5, tips: 130, weeks: 8 },
-        expected:     { hours: 36, shifts: 5, tips: 230, weeks: 8.5 },
-        strive:       { hours: 40, shifts: 5, tips: 330, weeks: 9 }
+        conservative: { hours: 32, shifts: 5, tips: 140, weeks: 8 },
+        expected:     { hours: 36, shifts: 5, tips: 240, weeks: 8.5 },
+        strive:       { hours: 40, shifts: 5, tips: 360, weeks: 9 }
       },
       perksTitle: "Ask manager about restaurant staff perks",
       perksDesc: "Staff meal per shift, 25–50% F&B discount, possibly TransitChek pre-tax MetroCard, comp drinks during/after shift at many venues."
